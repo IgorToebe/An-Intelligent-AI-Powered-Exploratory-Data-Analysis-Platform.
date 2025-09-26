@@ -68,10 +68,22 @@ try:
         obter_info_arquivo, 
         recomendar_estrategia_carregamento
     )
-    from agente.agente_core import AgenteEDA
+    # AgenteEDA será importado quando necessário (lazy loading)
+    MODULES_AVAILABLE = True
 except ImportError as e:
     st.error(f"Erro ao importar módulos: {e}")
+    MODULES_AVAILABLE = False
     st.stop()
+
+
+def get_agente_class():
+    """Importa AgenteEDA apenas quando necessário (lazy loading)."""
+    try:
+        from agente.agente_core import AgenteEDA
+        return AgenteEDA
+    except ImportError as e:
+        st.error(f"Erro ao carregar o módulo de IA: {e}")
+        return None
 
 
 # ========== CONFIGURAÇÃO DA APLICAÇÃO ==========
@@ -896,7 +908,9 @@ def _carregar_e_inicializar_dados(caminho_temp, nome_arquivo, info_arquivo,
         
         # Inicializar agente IA
         with st.spinner("Inicializando agente IA..."):
-            st.session_state.agente = AgenteEDA(df, api_key=st.session_state.api_key)
+            AgenteEDA = get_agente_class()
+            if AgenteEDA:
+                st.session_state.agente = AgenteEDA(df, api_key=st.session_state.api_key)
         
         # Feedback de sucesso
         memoria_mb = df.memory_usage(deep=True).sum() / (1024**2)
@@ -1315,7 +1329,9 @@ def sidebar_informacoes():
             # Recria o agente se a API key mudou e há dados carregados
             if api_key_mudou and st.session_state.df_carregado is not None:
                 try:
-                    st.session_state.agente = AgenteEDA(st.session_state.df_carregado, api_key=st.session_state.api_key)
+                    AgenteEDA = get_agente_class()
+                    if AgenteEDA:
+                        st.session_state.agente = AgenteEDA(st.session_state.df_carregado, api_key=st.session_state.api_key)
                     # Verificar se o agente está usando LLM
                     if hasattr(st.session_state.agente, 'llm_disponivel') and st.session_state.agente.llm_disponivel:
                         st.markdown("""
