@@ -18,12 +18,8 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
-# Nota: Para produção no Streamlit Cloud, use st.secrets em vez de .env
-try:
-    from dotenv import load_dotenv
-    load_dotenv()  # Funciona em desenvolvimento local
-except ImportError:
-    pass  # Em produção no Streamlit Cloud, use st.secrets
+# Nota: Para produção no Streamlit Cloud, use st.secrets
+# python-dotenv removido para compatibilidade com Streamlit Cloud
 
 def converter_para_arrow_compativel(df: pd.DataFrame) -> pd.DataFrame:
     """

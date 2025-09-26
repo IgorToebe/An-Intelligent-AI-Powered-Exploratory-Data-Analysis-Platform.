@@ -1,0 +1,16 @@
+# Versão minimalista para Streamlit Cloud
+# Use este arquivo se houver problemas com o requirements.txt principal
+
+streamlit
+pandas
+numpy
+matplotlib
+seaborn
+plotly
+scikit-learn
+scipy
+langchain
+langchain-community
+langchain-google-genai
+google-generativeai
+typing-extensions

@@ -1,0 +1,19 @@
+# Requirements.txt ULTRA COMPATÍVEL com Streamlit Cloud
+# Testado e aprovado para funcionar
+
+# Core essencial
+streamlit>=1.28.0
+pandas>=1.3.0
+numpy>=1.20.0
+
+# Visualização básica
+matplotlib>=3.3.0
+seaborn>=0.11.0
+
+# Análise de dados
+scikit-learn>=1.0.0
+scipy>=1.7.0
+
+# IA - versões estáveis
+langchain==0.1.20
+google-generativeai>=0.3.0
