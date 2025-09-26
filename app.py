@@ -5,7 +5,7 @@ Interface web moderna para análise exploratória de dados usando IA.
 Permite upload de CSV e interação via linguagem natural com agente inteligente.
 
 Autor: Igor Töebe Lopes Farias.
-Versão: 2.0
+Versão: 2.0.1 - SSL Fix
 """
 
 import os
